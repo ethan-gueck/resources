@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mathematics: A Comprehensive Review | Ethan Gueck</title>
+  <meta name="description" content="Mathematics: A Comprehensive Review (Study Edition): formulas, definitions, context and print-ready flashcards, in light and dark editions.">
+  <meta name="author" content="Ethan Gueck">
+  <meta name="theme-color" content="#0B3D2E">
+  <link rel="icon" href="https://ethan-gueck.github.io/assets/img/favicon.svg" type="image/svg+xml">
+
+  <!-- The document follows the portfolio's light / dark choice (localStorage "pp-theme", same origin) until toggled here. -->
+  <script>try { if (localStorage.getItem('pp-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch (e) {}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <!-- The portfolio's design tokens, so both modes match the main site. -->
+  <link rel="stylesheet" href="https://ethan-gueck.github.io/assets/css/tokens.css">
+  <link rel="stylesheet" href="https://ethan-gueck.github.io/assets/css/dark.css">
+  <link rel="stylesheet" href="../assets/viewer.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="bar__title">
+      <span class="bar__kicker">Resources</span>
+      <h1 class="bar__name">Mathematics: A Comprehensive Review <span class="bar__edition">Study Edition</span></h1>
+    </div>
+    <div class="bar__tools">
+      <label class="bar__jump">
+        <span class="visually-hidden">Jump to section</span>
+        <select id="sections" aria-label="Jump to section"><option value="">Jump to section…</option></select>
+      </label>
+      <span class="bar__page" id="page-indicator" aria-live="polite">Loading…</span>
+      <a class="bar__btn" id="download" href="Math_Comprehensive_Review_Study_Edition.pdf" download>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>
+        <span>Download <span id="download-mode">light</span> PDF</span>
+      </a>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Switch the document to dark mode" title="Dark mode">
+        <svg class="theme-toggle__moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+        <svg class="theme-toggle__sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="doc" id="doc" aria-label="Document pages">
+    <p class="doc__note">
+      <strong>Printing.</strong> Print double-sided at 100% (actual size). Every section starts on an odd page, so a printed copy
+      separates cleanly by section, and each flashcard sheet's back lands behind its front.
+    </p>
+    <div class="doc__pages" id="pages"></div>
+    <p class="doc__error" id="error" role="alert" hidden></p>
+  </main>
+
+  <footer class="foot">© Ethan Gueck 2026</footer>
+
+  <script type="module" src="../assets/viewer.js"></script>
+</body>
+</html>
