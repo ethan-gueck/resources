@@ -1,6 +1,6 @@
 # Resources
 
-Reference documents from [Ethan Gueck's portfolio](https://ethan-gueck.github.io/#references), published at **https://ethan-gueck.github.io/resources/**.
+Reference documents from [Ethan Gueck's portfolio](https://ethan-gueck.github.io/#misc), published at **https://ethan-gueck.github.io/resources/**.
 
 | Resource | Page | Files |
 | --- | --- | --- |
