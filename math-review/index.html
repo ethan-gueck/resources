@@ -22,11 +22,26 @@
 </head>
 <body>
   <header class="bar">
+    <a class="bar__back" href="https://ethan-gueck.github.io/#r-new-tab" aria-label="Back to the portfolio" title="Back to the portfolio">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+      <span>Back</span>
+    </a>
     <div class="bar__title">
       <span class="bar__kicker">Resources</span>
       <h1 class="bar__name">Mathematics: A Comprehensive Review <span class="bar__edition">Study Edition</span></h1>
     </div>
     <div class="bar__tools">
+      <form class="bar__search" id="search" role="search" autocomplete="off">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg>
+        <input type="search" id="search-input" placeholder="Search the review…" aria-label="Search the document" aria-describedby="search-count">
+        <span class="bar__count" id="search-count" aria-live="polite"></span>
+        <button type="button" class="bar__step" id="search-prev" aria-label="Previous match" title="Previous match (Shift+Enter)" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>
+        </button>
+        <button type="submit" class="bar__step" id="search-next" aria-label="Next match" title="Next match (Enter)" disabled>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+      </form>
       <label class="bar__jump">
         <span class="visually-hidden">Jump to section</span>
         <select id="sections" aria-label="Jump to section"><option value="">Jump to section…</option></select>

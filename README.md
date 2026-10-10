@@ -8,6 +8,8 @@ Reference documents from [Ethan Gueck's portfolio](https://ethan-gueck.github.io
 
 The page renders the PDF with [PDF.js](https://mozilla.github.io/pdf.js/) (vendored in `assets/pdfjs/`, Apache-2.0, so its worker is same-origin). The moon/sun button in the top-right corner switches between the light (original) and dark editions and the download button follows it; `?mode=dark` or `?mode=light` opens a given edition, otherwise the page follows the portfolio's saved light/dark choice.
 
+The search field in the bar finds text across the whole document (case-insensitive), highlights every match and steps through them (Enter / Shift+Enter, or the arrows; Esc clears; Ctrl/Cmd+F focuses it). `?q=term` opens with a search run. The Back button returns to the portfolio's References (The Margins → New tab references).
+
 ## Layout
 
 ```
