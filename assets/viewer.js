@@ -10,8 +10,8 @@ import * as pdfjs from "./pdfjs/pdf.min.mjs";  // PDF.js 4.10.38 (Apache-2.0), s
 pdfjs.GlobalWorkerOptions.workerSrc = new URL("./pdfjs/pdf.worker.min.mjs", import.meta.url).href;
 
 const FILES = {
-  light: "Math_Comprehensive_Review_Study_Edition.pdf",
-  dark: "Math_Comprehensive_Review_Study_Edition_Dark.pdf",
+  light: "Math_Comprehensive_Review_Second_Edition.pdf",
+  dark: "Math_Comprehensive_Review_Second_Edition_Dark.pdf",
 };
 
 const $ = (id) => document.getElementById(id);

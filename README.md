@@ -4,7 +4,7 @@ Reference documents from [Ethan Gueck's portfolio](https://ethan-gueck.github.io
 
 | Resource | Page | Files |
 | --- | --- | --- |
-| Mathematics: A Comprehensive Review (Study Edition) | [math-review/](https://ethan-gueck.github.io/resources/math-review/) | [light](math-review/Math_Comprehensive_Review_Study_Edition.pdf), [dark](math-review/Math_Comprehensive_Review_Study_Edition_Dark.pdf) |
+| Mathematics: A Comprehensive Review (Second Edition) | [math-review/](https://ethan-gueck.github.io/resources/math-review/) | [light](math-review/Math_Comprehensive_Review_Second_Edition.pdf), [dark](math-review/Math_Comprehensive_Review_Second_Edition_Dark.pdf) |
 
 The page renders the PDF with [PDF.js](https://mozilla.github.io/pdf.js/) (vendored in `assets/pdfjs/`, Apache-2.0, so its worker is same-origin). The moon/sun button in the top-right corner switches between the light (original) and dark editions and the download button follows it; `?mode=dark` or `?mode=light` opens a given edition, otherwise the page follows the portfolio's saved light/dark choice.
 
@@ -29,11 +29,14 @@ resources/
 uv run build/build_pdfs.py
 ```
 
-From `source/Math_Comprehensive_Review_Study_Edition.pdf` this:
+From `source/Math_Comprehensive_Review_Second_Edition.pdf` this:
 
-- inserts a blank page wherever a section would start on an even page, so every section starts on an odd (right-hand) page: a double-sided print separates by section, and the flashcard sheets keep each back behind its front;
+- adds a bookmark outline when the source has none (the second edition is compiled without one): chapters from their opener pages, then every concept and key topic from the Contents links; the viewer's "Jump to section" lists the chapters;
+- inserts a blank page wherever a section would start on an even page, so every section starts on an odd (right-hand) page (the second edition already does this itself, so none are inserted): a double-sided print separates by section, and the flashcard sheets keep each back behind its front;
 - adds "© Ethan Gueck 2026" to the bottom-right margin of every page;
 - sets page labels to the printed page numbers (inserted pages read "Blank");
 - writes the dark edition by mapping every colour onto the portfolio's dark palette (the PDF is vector-only, so text and figures stay sharp).
+
+The LaTeX source of the second edition lives in `../math-review-2nd-edition-source/` (not in this repo).
 
 To publish a new version of the document, replace the file in `source/`, rebuild and push. GitHub Pages serves the `main` branch as-is.

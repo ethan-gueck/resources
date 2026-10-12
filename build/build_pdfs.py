@@ -7,6 +7,8 @@
     uv run build/build_pdfs.py
 
 Light edition (the original colours):
+  * a bookmark outline (chapters, then each concept and key topic) when the source has none:
+    chapters from their opener pages, entries from the links on the Contents pages;
   * a blank page is inserted wherever a section would otherwise start on an even page, so every
     section starts on an odd (right-hand) page and a printed copy separates cleanly by section;
     the flashcard sheets then keep their front-on-odd, back-on-even pairing for duplex printing;
@@ -22,13 +24,14 @@ of its shadings, keeping the text and figures sharp.
 from __future__ import annotations
 
 import colorsys
+import re
 from pathlib import Path
 
 import pikepdf
 import pymupdf
 
 ROOT = Path(__file__).resolve().parents[1]
-NAME = "Math_Comprehensive_Review_Study_Edition"
+NAME = "Math_Comprehensive_Review_Second_Edition"
 SOURCE = ROOT / "source" / f"{NAME}.pdf"
 OUT = ROOT / "math-review"
 LIGHT = OUT / f"{NAME}.pdf"
@@ -47,6 +50,44 @@ DARK_FG = (0xF0 / 255, 0xF4 / 255, 0xF8 / 255)
 
 
 # ---- Light edition -------------------------------------------------------------
+
+
+def build_outline(doc: pymupdf.Document) -> None:
+    """Bookmarks for a source compiled without them.
+
+    Level 1: each chapter opener (a page whose first line is its two-digit number, then the title)
+    and the Flashcards section. Level 2: every concept and key topic, from the Contents pages'
+    links (named destinations "c:<key>"), titled with the display ID and name printed there.
+    """
+    if doc.get_toc():
+        return
+    chapters = []
+    for index, page in enumerate(doc):
+        lines = page.get_text().split("\n")
+        if re.fullmatch(r"\d\d", lines[0]) and len(lines) > 1:
+            chapters.append((index, f"{lines[0]} {lines[1]}"))
+        elif lines[0] == "Flashcards":
+            chapters.append((index, "Flashcards"))
+    entries, seen = [], set()
+    first = next(i for i in range(chapters[0][0]) if "Contents" in doc[i].get_text().split("\n")[:3])
+    for page in doc.pages(first, chapters[0][0]):  # from "Contents" up to the first chapter
+        words = page.get_text("words")
+        for link in page.get_links():
+            dest = str(link.get("nameddest", ""))
+            if not dest.startswith("c:") or dest in seen:
+                continue
+            seen.add(dest)
+            box = link["from"]  # one Contents row (the page has two columns)
+            row = [w for w in words if box.x0 - 1 <= w[0] and w[2] <= box.x1 + 1 and box.y0 - 1 <= (w[1] + w[3]) / 2 <= box.y1 + 1]
+            text = " ".join(w[4] for w in sorted(row, key=lambda w: w[0]) if w[4].strip("."))
+            text = re.sub(r"\s*\d+$", "", text).replace("Key topic: ", "")
+            entries.append((link["page"], text))
+    toc, starts = [], [c[0] for c in chapters]
+    for n, (index, title) in enumerate(chapters):
+        toc.append([1, title, index + 1])
+        end = starts[n + 1] if n + 1 < len(starts) else doc.page_count
+        toc += [[2, text, page + 1] for page, text in entries if index <= page < end]
+    doc.set_toc(toc)
 
 
 def insert_blank_pages(doc: pymupdf.Document) -> list[int]:
@@ -91,6 +132,7 @@ def page_labels(count: int, blanks: list[int]) -> list[dict]:
 
 def build_light() -> list[int]:
     doc = pymupdf.open(SOURCE)
+    build_outline(doc)
     blanks = insert_blank_pages(doc)
     for index, page in enumerate(doc):
         stamp(page, index in blanks)
@@ -184,7 +226,7 @@ def build_dark() -> None:
         prefix = f"q {bg} rg {x0} {y0} {x1 - x0} {y1 - y0} re f Q {fg} rg {fg} RG\n".encode()
         page.Contents = pdf.make_stream(prefix + body)
         recolor_resources(pdf, page.get("/Resources"), seen)
-    pdf.docinfo["/Title"] = "Mathematics: A Comprehensive Review (Study Edition, Dark)"
+    pdf.docinfo["/Title"] = "Mathematics: A Comprehensive Review (Second Edition, Dark)"
     pdf.save(DARK)
 
 
